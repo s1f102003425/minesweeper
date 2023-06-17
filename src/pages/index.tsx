@@ -2,6 +2,16 @@ import { useState } from 'react';
 import styles from './index.module.css';
 
 const Home = () => {
+  const directions = [
+    [-1, -1],
+    [-1, 0],
+    [0, -1],
+    [1, 1],
+    [1, 0],
+    [0, 1],
+    [1, -1],
+    [-1, 1],
+  ];
   // 0 -> 未クリック
   // 1 -> 左クリック
   // 2 -> はてな
@@ -10,10 +20,10 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 2, 0, 0, 0],
+    [0, 0, 0, 0, 0, 2, 0, 0, 0],
+    [0, 0, 0, 0, 0, 3, 0, 0, 0],
+    [0, 0, 0, 0, 0, 4, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
@@ -48,13 +58,8 @@ const Home = () => {
         <div className={styles['play-board']}>
           {userInputs.map((row, y) =>
             row.map((display, x) => (
-              <div
-                className={styles.icon}
-                key={'${x}-${y}'}
-                style={{}}
-                //onClick={() => onclick(x, y)}
-              >
-                {display !== 0 && <div className={styles.stone} />}
+              <div className={styles.icon} key={'${x}-${y}'}>
+                <div className={styles.stone} style={{ backgroundPosition: 30 - 30 * display }} />
               </div>
             ))
           )}
