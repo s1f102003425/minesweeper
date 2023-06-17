@@ -1,12 +1,9 @@
-import { useState } from 'react';
-import styles from './index.module.css';
-
 const Home = () => {
   // 0 -> 未クリック
   // 1 -> 左クリック
   // 2 -> はてな
   // 3 -> 旗
-  const [userInputs, setUserInputs] = useState<(0 | 1 | 2 | 3)[][]>([
+  /*const [userInputs, setUserInputs] = useState<(0 | 1 | 2 | 3)[][]>([
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -62,6 +59,7 @@ const Home = () => {
       </div>
     </div>
   );
+            */
 };
 
 export default Home;
