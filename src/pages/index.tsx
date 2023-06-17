@@ -1,9 +1,12 @@
+import { useState } from 'react';
+import styles from './index.module.css';
+
 const Home = () => {
   // 0 -> 未クリック
   // 1 -> 左クリック
   // 2 -> はてな
   // 3 -> 旗
-  /*const [userInputs, setUserInputs] = useState<(0 | 1 | 2 | 3)[][]>([
+  const [userInputs, setUserInputs] = useState<(0 | 1 | 2 | 3)[][]>([
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -49,7 +52,7 @@ const Home = () => {
                 className={styles.icon}
                 key={'${x}-${y}'}
                 style={{}}
-                onClick={() => onclick(x, y)}
+                //onClick={() => onclick(x, y)}
               >
                 {display !== 0 && <div className={styles.stone} />}
               </div>
@@ -59,7 +62,6 @@ const Home = () => {
       </div>
     </div>
   );
-            */
 };
 
 export default Home;
