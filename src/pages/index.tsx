@@ -20,10 +20,10 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 2, 0, 0, 0],
-    [0, 0, 0, 0, 0, 2, 0, 0, 0],
-    [0, 0, 0, 0, 0, 3, 0, 0, 0],
-    [0, 0, 0, 0, 0, 4, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
@@ -51,16 +51,34 @@ const Home = () => {
   // 9 -> 石＋はてな
   // 10 -> 石＋旗
   // 11 -> ボムセル
-  const board: number[][] = [];
+  const board: number[][] = [
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+  ];
   return (
     <div className={styles.container}>
       <div className={styles.board}>
         <div className={styles['play-board']}>
-          {userInputs.map((row, y) =>
+          {}
+          {board.map((row, y) =>
             row.map((display, x) => (
-              <div className={styles.icon} key={'${x}-${y}'}>
-                <div className={styles.stone} style={{ backgroundPosition: 30 - 30 * display }} />
-              </div>
+              <div
+                className={styles.icon}
+                key={'${x}-${y}'}
+                style={{
+                  backgroundPosition: 30 - 30 * display,
+                  border: display === -1 ? 5 : 1,
+                  borderStyle: display === -1 ? 'outset' : 'solid',
+                  borderColor: '#f9f9f9',
+                }}
+              />
             ))
           )}
         </div>
