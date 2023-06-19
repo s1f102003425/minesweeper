@@ -9,23 +9,23 @@
 }
 
 .board {
-  height: 380px;
-  width: 320px;
+  height: 480px;
+  width: 410px;
   background-color: #d6d7d8;
   border: 5px outset #f9f9f9;
   padding: 75px 15px 15px;
 }
 
 .play-board {
-  height: 280px;
-  width: 280px;
+  height: 370px;
+  width: 370px;
   border: 5px inset #f9f9f9;
   font-size: 0;
 }
 
 .icon {
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   display: inline-block;
   border: 1px solid #f9f9f9;
   background: url('~/assets/images/icons.png') no-repeat;
