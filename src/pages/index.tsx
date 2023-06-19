@@ -75,17 +75,29 @@ const Home = () => {
           {board.map((row, y) =>
             row.map((display, x) => (
               <div
-                className={styles.icon}
+                className={styles.cell}
                 key={`${x}-${y}`}
                 onClick={() => onClick(x, y)}
                 style={{
-                  backgroundPosition: 30 - 30 * display,
                   border:
-                    display === -1 || display === 9 || display === 10
-                      ? '5px #f9f9f9 outset'
-                      : '5px #f9f9f9 solid',
+                    display !== -1 && display !== 9 && display !== 10
+                      ? '2px solid #999'
+                      : undefined,
                 }}
-              />
+              >
+                <div
+                  className={styles.icon}
+                  style={{
+                    backgroundPosition: 30 - 30 * display,
+                    border:
+                      display !== -1 && display !== 9 && display !== 10
+                        ? '5px #d6d7d8  solid'
+                        : '5px #f9f9f9 outset',
+                    width: display !== -1 && display !== 9 && display !== 10 ? 36 : 40,
+                    height: display !== -1 && display !== 9 && display !== 10 ? 36 : 40,
+                  }}
+                />
+              </div>
             ))
           )}
         </div>

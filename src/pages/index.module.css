@@ -13,7 +13,7 @@
   width: 410px;
   background-color: #d6d7d8;
   border: 5px outset #f9f9f9;
-  padding: 75px 15px 15px;
+  padding: 90px 15px 15px;
 }
 
 .play-board {
@@ -23,11 +23,17 @@
   font-size: 0;
 }
 
-.icon {
+.cell {
   height: 40px;
   width: 40px;
   display: inline-block;
-  border: 1px solid #f9f9f9;
+  border: 0;
+  max-width: 360px;
+}
+
+.icon {
+  height: 40px;
+  width: 40px;
   background: url('~/assets/images/icons.png') no-repeat;
   background-position: 0;
 }
