@@ -43,20 +43,45 @@ const Home = () => {
   // 10 -> 石＋旗
   // 11 -> ボムセル
   const board: number[][] = [
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, 1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, 0, -1, -1, -1, -1],
-    [-1, -1, -1, -1, 2, -1, -1, -1, -1],
-    [-1, -1, -1, -1, 3, -1, -1, -1, -1],
-    [-1, -1, -1, -1, 5, -1, -1, 9, 0],
-    [-1, -1, -1, -1, 8, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
   ];
+  // 周囲8マスのボムの有無を確認して、その個数を返す関数
+  const bombSearch = (x: number, y: number) => {
+    let count = 0;
+    for (const direction of directions) {
+      if (userInputs[y + direction[0]] === undefined) {
+        continue;
+      }
+      if (bombMap[y + direction[0]][x + direction[1]] === 1) {
+        count++;
+      }
+    }
+    if (count === 0) {
+      board[y][x] = 0;
+      for (const direction of directions) {
+        const subX = x + direction[1];
+        const subY = y + direction[0];
+        if (board[subY] !== undefined && board[subY][subX] === -1) {
+          bombSearch(subX, subY);
+        }
+      }
+    } else {
+      return (board[y][x] = count);
+    }
+  };
   const userClick = (x: number, y: number) => {
     console.log(x, y);
     const newUserInputs: (0 | 1 | 2 | 3)[][] = JSON.parse(JSON.stringify(userInputs));
     const newBombMap: (0 | 1)[][] = JSON.parse(JSON.stringify(bombMap));
+    // 1手目の時に実行
     if (normalBoard === bombMap) {
       let i = 1;
       while (i < 11) {
@@ -68,9 +93,20 @@ const Home = () => {
         }
         setBombMap(newBombMap);
       }
-      console.table(newBombMap);
     }
+    newUserInputs[y][x] = 1;
+    setUserInputs(newUserInputs);
+    // ボムを左クリックした時
   };
+  // boardにuserInputsとbombMapを反映
+  for (let iY = 0; iY < 9; iY++) {
+    for (let iX = 0; iX < 9; iX++) {
+      if (userInputs[iY][iX] === 1) {
+        bombSearch(iX, iY);
+      }
+    }
+  }
+  console.table(board);
 
   return (
     <div className={styles.container}>
@@ -92,7 +128,8 @@ const Home = () => {
                 <div
                   className={styles.icon}
                   style={{
-                    backgroundPosition: 30 - 30 * display,
+                    backgroundPosition:
+                      (display !== -1 && display !== 9 && display !== 10 ? 29 : 31) - 30 * display,
                     border:
                       display !== -1 && display !== 9 && display !== 10
                         ? '5px #d6d7d8 solid'
