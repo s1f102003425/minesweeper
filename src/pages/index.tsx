@@ -34,7 +34,7 @@ const Home = () => {
   const [bombMap, setBombMap] = useState<(0 | 1)[][]>(normalBoard);
   const isPlaying = userInputs.some((row) => row.some((input) => input !== 0));
   const isFailure = userInputs.some((row, y) =>
-    row.some((input, x) => input === 1 && bombMap[x][y] === 1)
+    row.some((input, x) => input === 1 && bombMap[y][x] === 1)
   );
   // -1 -> 石
   // 0 -> 画像セルなし
@@ -51,9 +51,10 @@ const Home = () => {
     [-1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [-1, -1, -1, -1, 1, -1, -1, -1, -1],
+    [-1, -1, -1, -1, -1, -1, -1, -1, -1],
   ];
-  // 周囲8マスのボムの有無を確認して、その個数を返す関数
+  // そのマスの周囲8マスにあるボムの数をboardに入力する関数
+  // 周囲8マスのボムの有無を確認して0なら、その8マスでもそれを繰り返す関数
   const bombSearch = (x: number, y: number) => {
     let count = 0;
     for (const direction of directions) {
@@ -74,7 +75,7 @@ const Home = () => {
         }
       }
     } else {
-      return (board[y][x] = count);
+      board[y][x] = count;
     }
   };
   const userClick = (x: number, y: number) => {
@@ -96,13 +97,24 @@ const Home = () => {
     }
     newUserInputs[y][x] = 1;
     setUserInputs(newUserInputs);
-    // ボムを左クリックした時
   };
   // boardにuserInputsとbombMapを反映
   for (let iY = 0; iY < 9; iY++) {
     for (let iX = 0; iX < 9; iX++) {
       if (userInputs[iY][iX] === 1) {
-        bombSearch(iX, iY);
+        {
+          bombMap[iY][iX] === 1 ? (board[iY][iX] = 11) : bombSearch(iX, iY);
+        }
+      }
+    }
+  }
+  // ボムを左クリックした時
+  if (isFailure) {
+    for (let failY = 0; failY < 9; failY++) {
+      for (let failX = 0; failX < 9; failX++) {
+        if (bombMap[failY][failX] === 1) {
+          board[failY][failX] = 11;
+        }
       }
     }
   }
