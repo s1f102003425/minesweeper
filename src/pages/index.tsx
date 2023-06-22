@@ -78,12 +78,19 @@ const Home = () => {
       board[y][x] = count;
     }
   };
+  // リセットボタン
+  const resetClick = () => {
+    setUserInputs(normalBoard);
+    setBombMap(normalBoard);
+    console.log(normalBoard === bombMap);
+    console.log(JSON.stringify(normalBoard) === JSON.stringify(bombMap));
+  };
   const userClick = (x: number, y: number) => {
     console.log(x, y);
     const newUserInputs: (0 | 1 | 2 | 3)[][] = JSON.parse(JSON.stringify(userInputs));
     const newBombMap: (0 | 1)[][] = JSON.parse(JSON.stringify(bombMap));
     // 1手目の時に実行
-    if (normalBoard === bombMap) {
+    if (JSON.stringify(normalBoard) === JSON.stringify(bombMap)) {
       let i = 1;
       while (i < 11) {
         const xBomb = Math.floor(Math.random() * 9);
@@ -118,13 +125,13 @@ const Home = () => {
       }
     }
   }
-  console.table(board);
+  console.table(bombMap);
 
   return (
     <div className={styles.container}>
       <div className={styles.board}>
         <div className={styles['sub-board']}>
-          <div className={styles.reset} />
+          <div className={styles.reset} onClick={() => resetClick()} />
         </div>
         <div className={styles.bar} />
         <div className={styles['play-board']}>
