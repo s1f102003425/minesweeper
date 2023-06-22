@@ -21,14 +21,17 @@
   width: 370px;
   border: 5px inset #f9f9f9;
   font-size: 0;
+  position: relative;
 }
 
 .bomb-count {
   height: 70px;
   width: 140px;
-  margin: 5px;
   background-color: black;
   display: inline-block;
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 
 .reset {
@@ -36,9 +39,21 @@
   width: 40px;
   border: 5px outset #f9f9f9;
   display: inline-block;
-  margin: 25px;
   background: url('~/assets/images/icons.png') no-repeat;
   background-position: -330px;
+  position: absolute;
+  top: 20px;
+  left: 160px;
+}
+
+.time-count {
+  height: 70px;
+  width: 140px;
+  background-color: black;
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 .reset:active {

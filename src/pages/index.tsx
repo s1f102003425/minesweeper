@@ -141,6 +141,7 @@ const Home = () => {
             onClick={() => resetClick()}
             style={isFailure ? { backgroundPositionX: '-390px' } : {}}
           />
+          <div className={styles['time-count']} />
         </div>
         <div className={styles.bar} />
         <div className={styles['play-board']}>
