@@ -28,7 +28,6 @@ const Home = () => {
   // 2 -> はてな
   // 3 -> 旗
   const [userInputs, setUserInputs] = useState<(0 | 1 | 2 | 3)[][]>(normalBoard);
-  const bombCount = 10;
   // 0 -> ボム無し
   // 1 -> ボム有り
   const [bombMap, setBombMap] = useState<(0 | 1)[][]>(normalBoard);
@@ -78,6 +77,14 @@ const Home = () => {
       board[y][x] = count;
     }
   };
+  let bombCount = 0;
+  for (const bombRow of bombMap) {
+    for (const bomb of bombRow) {
+      if (bomb === 1) {
+        bombCount++;
+      }
+    }
+  }
   // リセットボタン
   const resetClick = () => {
     setUserInputs(normalBoard);
@@ -135,13 +142,15 @@ const Home = () => {
     <div className={styles.container}>
       <div className={styles.board}>
         <div className={styles['sub-board']}>
-          <div className={styles['bomb-count']} />
+          <div className={styles['bomb-count-board']}>
+            <p className={styles['bomb-count']}>{bombCount}</p>
+          </div>
           <div
             className={styles.reset}
             onClick={() => resetClick()}
             style={isFailure ? { backgroundPositionX: '-390px' } : {}}
           />
-          <div className={styles['time-count']} />
+          <div className={styles['time-count-board']} />
         </div>
         <div className={styles.bar} />
         <div className={styles['play-board']}>

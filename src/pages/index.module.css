@@ -24,14 +24,21 @@
   position: relative;
 }
 
-.bomb-count {
-  height: 70px;
+.bomb-count-board {
+  height: 60px;
   width: 140px;
   background-color: black;
   display: inline-block;
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 10px;
+  left: 10px;
+}
+
+.bomb-count {
+  color: red;
+  font-size: 50px;
+  margin: 0;
+  float: right;
 }
 
 .reset {
@@ -46,14 +53,14 @@
   left: 160px;
 }
 
-.time-count {
-  height: 70px;
+.time-count-board {
+  height: 60px;
   width: 140px;
   background-color: black;
   display: inline-block;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
 }
 
 .reset:active {
