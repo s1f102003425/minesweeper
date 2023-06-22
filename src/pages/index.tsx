@@ -86,24 +86,28 @@ const Home = () => {
     console.log(JSON.stringify(normalBoard) === JSON.stringify(bombMap));
   };
   const userClick = (x: number, y: number) => {
-    console.log(x, y);
-    const newUserInputs: (0 | 1 | 2 | 3)[][] = JSON.parse(JSON.stringify(userInputs));
-    const newBombMap: (0 | 1)[][] = JSON.parse(JSON.stringify(bombMap));
-    // 1手目の時に実行
-    if (JSON.stringify(normalBoard) === JSON.stringify(bombMap)) {
-      let i = 1;
-      while (i < 11) {
-        const xBomb = Math.floor(Math.random() * 9);
-        const yBomb = Math.floor(Math.random() * 9);
-        if (newBombMap[yBomb][xBomb] === 0 && `${yBomb}-${xBomb}` !== `${y}-${x}`) {
-          newBombMap[yBomb][xBomb] = 1;
-          i += 1;
+    if (isFailure) {
+      null;
+    } else {
+      console.log(x, y);
+      const newUserInputs: (0 | 1 | 2 | 3)[][] = JSON.parse(JSON.stringify(userInputs));
+      const newBombMap: (0 | 1)[][] = JSON.parse(JSON.stringify(bombMap));
+      // 1手目の時に実行
+      if (JSON.stringify(normalBoard) === JSON.stringify(bombMap)) {
+        let i = 1;
+        while (i < 11) {
+          const xBomb = Math.floor(Math.random() * 9);
+          const yBomb = Math.floor(Math.random() * 9);
+          if (newBombMap[yBomb][xBomb] === 0 && `${yBomb}-${xBomb}` !== `${y}-${x}`) {
+            newBombMap[yBomb][xBomb] = 1;
+            i += 1;
+          }
+          setBombMap(newBombMap);
         }
-        setBombMap(newBombMap);
       }
+      newUserInputs[y][x] = 1;
+      setUserInputs(newUserInputs);
     }
-    newUserInputs[y][x] = 1;
-    setUserInputs(newUserInputs);
   };
   // boardにuserInputsとbombMapを反映
   for (let iY = 0; iY < 9; iY++) {
@@ -131,7 +135,12 @@ const Home = () => {
     <div className={styles.container}>
       <div className={styles.board}>
         <div className={styles['sub-board']}>
-          <div className={styles.reset} onClick={() => resetClick()} />
+          <div className={styles['bomb-count']} />
+          <div
+            className={styles.reset}
+            onClick={() => resetClick()}
+            style={isFailure ? { backgroundPositionX: '-390px' } : {}}
+          />
         </div>
         <div className={styles.bar} />
         <div className={styles['play-board']}>
