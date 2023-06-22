@@ -77,6 +77,7 @@ const Home = () => {
       board[y][x] = count;
     }
   };
+  // bombCount
   let bombCount = 0;
   for (const bombRow of bombMap) {
     for (const bomb of bombRow) {
@@ -85,6 +86,8 @@ const Home = () => {
       }
     }
   }
+  // timeCount
+  const timeCount = 0;
   // リセットボタン
   const resetClick = () => {
     setUserInputs(normalBoard);
@@ -150,7 +153,9 @@ const Home = () => {
             onClick={() => resetClick()}
             style={isFailure ? { backgroundPositionX: '-390px' } : {}}
           />
-          <div className={styles['time-count-board']} />
+          <div className={styles['time-count-board']}>
+            <p className={styles['time-count']}>{timeCount}</p>
+          </div>
         </div>
         <div className={styles.bar} />
         <div className={styles['play-board']}>

@@ -63,6 +63,13 @@
   right: 10px;
 }
 
+.time-count {
+  color: red;
+  font-size: 50px;
+  margin: 0;
+  float: right;
+}
+
 .reset:active {
   transform: translate3d();
   background-position: -360px;
