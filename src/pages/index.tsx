@@ -88,6 +88,25 @@ const Home = () => {
   }
   // timeCount
   const timeCount = 0;
+  // boardにuserInputsとbombMapを反映
+  for (let iY = 0; iY < 9; iY++) {
+    for (let iX = 0; iX < 9; iX++) {
+      if (userInputs[iY][iX] === 1) {
+        {
+          bombMap[iY][iX] === 1 ? (board[iY][iX] = 11) : bombSearch(iX, iY);
+        }
+      }
+    }
+  }
+  // クリア時にそれ以上クリックできないようにする(準備)
+  let revealCount = 0;
+  for (let iY = 0; iY < 9; iY++) {
+    for (let iX = 0; iX < 9; iX++) {
+      if (board[iY][iX] !== -1 && board[iY][iX] !== 9 && board[iY][iX] !== 10) {
+        revealCount++;
+      }
+    }
+  }
   // リセットボタン
   const resetClick = () => {
     setUserInputs(normalBoard);
@@ -96,10 +115,15 @@ const Home = () => {
     console.log(JSON.stringify(normalBoard) === JSON.stringify(bombMap));
   };
   const userClick = (x: number, y: number) => {
+    // ボムを左クリックした時にそれ以上クリックできないように
     if (isFailure) {
+      null;
+    } // クリア時にそれ以上クリックできないようにする(初級の時限定)
+    else if (revealCount === 71) {
       null;
     } else {
       console.log(x, y);
+      // useStateに代入する準備
       const newUserInputs: (0 | 1 | 2 | 3)[][] = JSON.parse(JSON.stringify(userInputs));
       const newBombMap: (0 | 1)[][] = JSON.parse(JSON.stringify(bombMap));
       // 1手目の時に実行
@@ -119,16 +143,7 @@ const Home = () => {
       setUserInputs(newUserInputs);
     }
   };
-  // boardにuserInputsとbombMapを反映
-  for (let iY = 0; iY < 9; iY++) {
-    for (let iX = 0; iX < 9; iX++) {
-      if (userInputs[iY][iX] === 1) {
-        {
-          bombMap[iY][iX] === 1 ? (board[iY][iX] = 11) : bombSearch(iX, iY);
-        }
-      }
-    }
-  }
+
   // ボムを左クリックした時
   if (isFailure) {
     for (let failY = 0; failY < 9; failY++) {
