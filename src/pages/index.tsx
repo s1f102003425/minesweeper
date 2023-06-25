@@ -88,13 +88,17 @@ const Home = () => {
   }
   // timeCount
   const timeCount = 0;
-  // boardにuserInputsとbombMapを反映
+  // boardにuserInputsとbombMapを反映(bombSearchを参照)
   for (let iY = 0; iY < 9; iY++) {
     for (let iX = 0; iX < 9; iX++) {
       if (userInputs[iY][iX] === 1) {
         {
           bombMap[iY][iX] === 1 ? (board[iY][iX] = 11) : bombSearch(iX, iY);
         }
+      } else if (userInputs[iY][iX] === 2) {
+        board[iY][iX] = 9;
+      } else if (userInputs[iY][iX] === 3) {
+        board[iY][iX] = 10;
       }
     }
   }
@@ -118,7 +122,7 @@ const Home = () => {
     // ボムを左クリックした時にそれ以上クリックできないように
     if (isFailure) {
       null;
-    } // クリア時にそれ以上クリックできないようにする(初級の時限定)
+    } // クリア時にそれ以上クリックできないようにする(初級限定)
     else if (revealCount === 71) {
       null;
     } else {
@@ -139,11 +143,30 @@ const Home = () => {
           setBombMap(newBombMap);
         }
       }
-      newUserInputs[y][x] = 1;
+      if (userInputs[y][x] === 0) {
+        newUserInputs[y][x] = 1;
+        setUserInputs(newUserInputs);
+      }
+    }
+  };
+  // 右クリックした時に旗とはてなにする
+  const rightClick = (x: number, y: number, event: MouseEvent) => {
+    event.preventDefault(); // デフォルトの右クリックメニューを無効化
+    // ゲームオーバー時にそれ以上クリックできないように
+    if (isFailure) {
+      null;
+    } else {
+      const newUserInputs: (0 | 1 | 2 | 3)[][] = JSON.parse(JSON.stringify(userInputs));
+      if (userInputs[y][x] === 0) {
+        newUserInputs[y][x] = 3;
+      } else if (userInputs[y][x] === 3) {
+        newUserInputs[y][x] = 2;
+      } else if (userInputs[y][x] === 2) {
+        newUserInputs[y][x] = 0;
+      }
       setUserInputs(newUserInputs);
     }
   };
-
   // ボムを左クリックした時
   if (isFailure) {
     for (let failY = 0; failY < 9; failY++) {
@@ -180,6 +203,7 @@ const Home = () => {
                 className={styles.cell}
                 key={`${x}-${y}`}
                 onClick={() => userClick(x, y)}
+                onContextMenu={(event) => rightClick(x, y, event as any)}
                 style={{
                   border:
                     display !== -1 && display !== 9 && display !== 10
