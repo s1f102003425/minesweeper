@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.css';
 
 const Home = () => {
@@ -150,9 +150,8 @@ const Home = () => {
     }
   };
   // 右クリックした時に旗とはてなにする
-  const rightClick = (x: number, y: number, event: MouseEvent) => {
+  const rightClick = (x: number, y: number, event: React.MouseEvent) => {
     event.preventDefault(); // デフォルトの右クリックメニューを無効化
-    // ゲームオーバー時にそれ以上クリックできないように
     if (isFailure) {
       null;
     } else {
@@ -203,7 +202,7 @@ const Home = () => {
                 className={styles.cell}
                 key={`${x}-${y}`}
                 onClick={() => userClick(x, y)}
-                onContextMenu={(event) => rightClick(x, y, event as any)}
+                onContextMenu={(event: React.MouseEvent) => rightClick(x, y, event)}
                 style={{
                   border:
                     display !== -1 && display !== 9 && display !== 10
