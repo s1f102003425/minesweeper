@@ -136,7 +136,11 @@ const Home = () => {
         while (i < 11) {
           const xBomb = Math.floor(Math.random() * 9);
           const yBomb = Math.floor(Math.random() * 9);
-          if (newBombMap[yBomb][xBomb] === 0 && `${yBomb}-${xBomb}` !== `${y}-${x}`) {
+          if (
+            newBombMap[yBomb][xBomb] === 0 &&
+            `${yBomb}-${xBomb}` !== `${y}-${x}` &&
+            (Math.abs(yBomb - y) > 1 || Math.abs(xBomb - x) > 1) // 初手で必ず空白連鎖がおきる
+          ) {
             newBombMap[yBomb][xBomb] = 1;
             i += 1;
           }
