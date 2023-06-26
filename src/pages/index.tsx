@@ -77,15 +77,6 @@ const Home = () => {
       board[y][x] = count;
     }
   };
-  // bombCount
-  let bombCount = 0;
-  for (const bombRow of bombMap) {
-    for (const bomb of bombRow) {
-      if (bomb === 1) {
-        bombCount++;
-      }
-    }
-  }
   // timeCount
   const timeCount = 0;
   // boardにuserInputsとbombMapを反映(bombSearchを参照)
@@ -101,6 +92,27 @@ const Home = () => {
         board[iY][iX] = 10;
       }
     }
+  }
+  // 旗の立っている数
+  let flagCount = 0;
+  for (const boardRow of board) {
+    for (const boardElement of boardRow) {
+      if (boardElement === 10) {
+        flagCount++;
+      }
+    }
+  }
+  // bombCount
+  let bombCount = 0;
+  for (const bombRow of bombMap) {
+    for (const bomb of bombRow) {
+      if (bomb === 1) {
+        bombCount++;
+      }
+    }
+  }
+  if (bombCount !== 0) {
+    bombCount -= flagCount;
   }
   // クリア時にそれ以上クリックできないようにする(準備)
   let revealCount = 0;
@@ -160,7 +172,7 @@ const Home = () => {
       null;
     } else {
       const newUserInputs: (0 | 1 | 2 | 3)[][] = JSON.parse(JSON.stringify(userInputs));
-      if (userInputs[y][x] === 0) {
+      if (userInputs[y][x] === 0 && flagCount < 10) {
         newUserInputs[y][x] = 3;
       } else if (userInputs[y][x] === 3) {
         newUserInputs[y][x] = 2;
