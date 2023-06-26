@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.css';
 
 const Home = () => {
@@ -78,7 +78,17 @@ const Home = () => {
     }
   };
   // timeCount
-  const timeCount = 0;
+  const [timeCount, setTimeCount] = useState(0);
+  useEffect(() => {
+    if (isPlaying && !isFailure) {
+      const plusTimeCount = setInterval(() => {
+        setTimeCount(timeCount + 1);
+      }, 1000);
+      return () => {
+        clearInterval(plusTimeCount);
+      };
+    }
+  }, [isPlaying, timeCount, isFailure]);
   // boardにuserInputsとbombMapを反映(bombSearchを参照)
   for (let iY = 0; iY < 9; iY++) {
     for (let iX = 0; iX < 9; iX++) {
@@ -127,8 +137,7 @@ const Home = () => {
   const resetClick = () => {
     setUserInputs(normalBoard);
     setBombMap(normalBoard);
-    console.log(normalBoard === bombMap);
-    console.log(JSON.stringify(normalBoard) === JSON.stringify(bombMap));
+    setTimeCount(0);
   };
   const userClick = (x: number, y: number) => {
     // ボムを左クリックした時にそれ以上クリックできないように
