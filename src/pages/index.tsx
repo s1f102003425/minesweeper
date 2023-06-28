@@ -77,18 +77,20 @@ const Home = () => {
       board[y][x] = count;
     }
   };
+  let cleared = false;
   // timeCount
   const [timeCount, setTimeCount] = useState(0);
   useEffect(() => {
-    if (isPlaying && !isFailure) {
+    if (isPlaying && !isFailure && !cleared) {
       const plusTimeCount = setInterval(() => {
         setTimeCount(timeCount + 1);
       }, 1000);
+      console.log(cleared);
       return () => {
         clearInterval(plusTimeCount);
       };
     }
-  }, [isPlaying, timeCount, isFailure]);
+  }, [isPlaying, timeCount, isFailure, cleared]);
   // boardにuserInputsとbombMapを反映(bombSearchを参照)
   for (let iY = 0; iY < 9; iY++) {
     for (let iX = 0; iX < 9; iX++) {
@@ -201,7 +203,10 @@ const Home = () => {
       }
     }
   }
-  console.table(bombMap);
+  if (revealCount === 71) {
+    cleared = true;
+  }
+  console.log(revealCount);
 
   return (
     <div className={styles.container}>
