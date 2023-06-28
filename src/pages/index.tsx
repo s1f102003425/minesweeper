@@ -85,7 +85,6 @@ const Home = () => {
       const plusTimeCount = setInterval(() => {
         setTimeCount(timeCount + 1);
       }, 1000);
-      console.log(cleared);
       return () => {
         clearInterval(plusTimeCount);
       };
@@ -126,7 +125,7 @@ const Home = () => {
   if (bombCount !== 0) {
     bombCount -= flagCount;
   }
-  // クリア時にそれ以上クリックできないようにする(準備)
+  // board上の開いたマスを数える(クリア時の挙動の準備)
   let revealCount = 0;
   for (let iY = 0; iY < 9; iY++) {
     for (let iX = 0; iX < 9; iX++) {
@@ -134,6 +133,10 @@ const Home = () => {
         revealCount++;
       }
     }
+  }
+  // クリア時のフラグ
+  if (revealCount === 71) {
+    cleared = true;
   }
   // リセットボタン
   const resetClick = () => {
@@ -203,10 +206,6 @@ const Home = () => {
       }
     }
   }
-  if (revealCount === 71) {
-    cleared = true;
-  }
-  console.log(revealCount);
 
   return (
     <div className={styles.container}>
