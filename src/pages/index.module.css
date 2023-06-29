@@ -25,13 +25,13 @@
 }
 
 .bomb-count-board {
-  height: 60px;
-  width: 140px;
+  height: 64px;
+  width: 100px;
   background-color: black;
   display: inline-block;
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 8px;
+  left: 20px;
 }
 
 .bomb-count {
@@ -54,13 +54,13 @@
 }
 
 .time-count-board {
-  height: 60px;
-  width: 140px;
+  height: 64px;
+  width: 100px;
   background-color: black;
   display: inline-block;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 20px;
 }
 
 .time-count {
