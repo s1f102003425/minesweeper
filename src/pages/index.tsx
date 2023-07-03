@@ -186,7 +186,7 @@ const Home = () => {
       null;
     } else {
       const newUserInputs: (0 | 1 | 2 | 3)[][] = JSON.parse(JSON.stringify(userInputs));
-      if (userInputs[y][x] === 0 && flagCount < 10) {
+      if (board[y][x] === -1 && flagCount < 10) {
         newUserInputs[y][x] = 3;
       } else if (userInputs[y][x] === 3) {
         newUserInputs[y][x] = 2;
