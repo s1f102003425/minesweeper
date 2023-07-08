@@ -203,7 +203,7 @@ const Home = () => {
         if (bombMap[failY][failX] === 1) {
           board[failY][failX] = 11;
           if (userInputs[failY][failX] === 1) {
-            board[failY][failX] = 11.000001;
+            board[failY][failX] = 12;
           }
         }
       }
@@ -242,20 +242,24 @@ const Home = () => {
                       : undefined,
                 }}
               >
-                <div
-                  className={styles.icon}
-                  style={{
-                    backgroundPosition:
-                      (display !== -1 && display !== 9 && display !== 10 ? 29 : 31) - 30 * display,
-                    border:
-                      display !== -1 && display !== 9 && display !== 10
-                        ? '5px #d6d7d8 solid'
-                        : '5px #f9f9f9 outset',
-                    width: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
-                    height: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
-                    backgroundColor: display > 11 ? '#ff0000' : '#d6d7d8',
-                  }}
-                />
+                {display !== 12 ? (
+                  <div
+                    className={styles.icon}
+                    style={{
+                      backgroundPosition:
+                        (display !== -1 && display !== 9 && display !== 10 ? 30 : 31) -
+                        30 * display,
+                      border:
+                        display !== -1 && display !== 9 && display !== 10
+                          ? '5px #d6d7d8 solid'
+                          : '5px #f9f9f9 outset',
+                      width: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
+                      height: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
+                    }}
+                  />
+                ) : (
+                  <div className={styles['red-bomb']} />
+                )}
               </div>
             ))
           )}
