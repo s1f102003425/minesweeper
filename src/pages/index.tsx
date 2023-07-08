@@ -202,6 +202,9 @@ const Home = () => {
       for (let failX = 0; failX < 9; failX++) {
         if (bombMap[failY][failX] === 1) {
           board[failY][failX] = 11;
+          if (userInputs[failY][failX] === 1) {
+            board[failY][failX] = 11.000001;
+          }
         }
       }
     }
@@ -250,6 +253,7 @@ const Home = () => {
                         : '5px #f9f9f9 outset',
                     width: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
                     height: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
+                    backgroundColor: display > 11 ? '#ff0000' : '#d6d7d8',
                   }}
                 />
               </div>
