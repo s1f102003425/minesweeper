@@ -209,6 +209,17 @@ const Home = () => {
       }
     }
   }
+  // 引数x,yが反映されないのを解決したい
+  const [highlight, setHighlight] = useState(false);
+
+  const handleMouseDown = (x: number, y: number) => {
+    setHighlight(true);
+  };
+
+  const handleMouseUp = (x: number, y: number) => {
+    setHighlight(false);
+  };
+  // ここまで
 
   return (
     <div className={styles.container}>
@@ -234,6 +245,10 @@ const Home = () => {
                 className={styles.cell}
                 key={`${x}-${y}`}
                 onClick={() => userClick(x, y)}
+                // 引数x,yが反映されないのを解決したい
+                onMouseDown={() => handleMouseDown(x, y)}
+                onMouseUp={() => handleMouseUp(x, y)}
+                // ここまで
                 onContextMenu={(event: React.MouseEvent) => rightClick(x, y, event)}
                 style={{
                   border:
