@@ -79,7 +79,7 @@ const Home = () => {
   };
   let cleared = false;
   // timeCount
-  const [timeCount, setTimeCount] = useState(990);
+  const [timeCount, setTimeCount] = useState(0);
   useEffect(() => {
     if (isPlaying && !isFailure && !cleared && timeCount < 999) {
       const plusTimeCount = setInterval(() => {
@@ -209,15 +209,6 @@ const Home = () => {
       }
     }
   }
-  /*const [highlight, setHighlight] = useState(false); // state to control the highlight
-
-  const handleMouseDown = () => {
-    setHighlight(true); // set the highlight when mouse is pressed
-  };
-
-  const handleMouseUp = () => {
-    setHighlight(false); // remove the highlight when mouse is released
-  };*/
 
   return (
     <div className={styles.container}>
@@ -251,34 +242,24 @@ const Home = () => {
                       : undefined,
                 }}
               >
-                <div
-                /* onMouseDown={handleMouseDown}
-                  onMouseUp={handleMouseUp}
-                  className={
-                    highlight ? 'highlight' : ''
-                  } /* apply the highlight class if highlight state is true */
-                >
-                  {/* Cell content */}
-
-                  {display !== 12 ? (
-                    <div
-                      className={styles.icon}
-                      style={{
-                        backgroundPosition:
-                          (display !== -1 && display !== 9 && display !== 10 ? 30 : 31) -
-                          30 * display,
-                        border:
-                          display !== -1 && display !== 9 && display !== 10
-                            ? '5px #d6d7d8 solid'
-                            : '5px #f9f9f9 outset',
-                        width: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
-                        height: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
-                      }}
-                    />
-                  ) : (
-                    <div className={styles['red-bomb']} />
-                  )}
-                </div>
+                {display !== 12 ? (
+                  <div
+                    className={styles.icon}
+                    style={{
+                      backgroundPosition:
+                        (display !== -1 && display !== 9 && display !== 10 ? 30 : 31) -
+                        30 * display,
+                      border:
+                        display !== -1 && display !== 9 && display !== 10
+                          ? '5px #d6d7d8 solid'
+                          : '5px #f9f9f9 outset',
+                      width: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
+                      height: display !== -1 && display !== 9 && display !== 10 ? 38 : 40,
+                    }}
+                  />
+                ) : (
+                  <div className={styles['red-bomb']} />
+                )}
               </div>
             ))
           )}
