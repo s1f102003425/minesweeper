@@ -81,7 +81,7 @@ const Home = () => {
   // timeCount
   const [timeCount, setTimeCount] = useState(0);
   useEffect(() => {
-    if (isPlaying && !isFailure && !cleared) {
+    if (isPlaying && !isFailure && !cleared && timeCount < 1000) {
       const plusTimeCount = setInterval(() => {
         setTimeCount(timeCount + 1);
       }, 1000);

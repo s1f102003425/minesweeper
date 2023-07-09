@@ -115,3 +115,9 @@
   background-position: -300px;
   background-color: #f00;
 }
+
+.highlight {
+  background-color: yellow;
+  height: 40px;
+  width: 40px;
+}
