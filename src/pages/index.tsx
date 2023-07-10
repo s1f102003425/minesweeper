@@ -244,10 +244,10 @@ const Home = () => {
               <div
                 className={styles.cell}
                 key={`${x}-${y}`}
-                onClick={() => userClick(x, y)}
+                //onClick={() => userClick(x, y)}
                 // 引数x,yが反映されないのを解決したい
                 onMouseDown={() => handleMouseDown(x, y)}
-                onMouseUp={() => handleMouseUp(x, y)}
+                onMouseUp={() => userClick(x, y)}
                 // ここまで
                 onContextMenu={(event: React.MouseEvent) => rightClick(x, y, event)}
                 style={{
