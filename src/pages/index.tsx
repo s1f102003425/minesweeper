@@ -31,6 +31,7 @@ const Home = () => {
   // 0 -> ボム無し
   // 1 -> ボム有り
   const [bombMap, setBombMap] = useState<(0 | 1)[][]>(normalBoard);
+  const [mouseDownMap, setMouseDownMap] = useState<(0 | 1)[][]>(normalBoard);
   const isPlaying = userInputs.some((row) => row.some((input) => input !== 0));
   const isFailure = userInputs.some((row, y) =>
     row.some((input, x) => input === 1 && bombMap[y][x] === 1)
@@ -41,6 +42,7 @@ const Home = () => {
   // 9 -> 石＋はてな
   // 10 -> 石＋旗
   // 11 -> ボムセル
+  // 12 -> 背景赤のボムセル
   const board: number[][] = [
     [-1, -1, -1, -1, -1, -1, -1, -1, -1],
     [-1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -209,16 +211,30 @@ const Home = () => {
       }
     }
   }
-  // 引数x,yが反映されないのを解決したい
+  // マウスを長押ししているアイコンを無地のものになるように
   const [highlight, setHighlight] = useState(false);
-
+  let mouseEnterHappened = false;
+  const handleMouseEnter = (x: number, y: number) => {
+    mouseEnterHappened = true;
+  };
+  const handleMouseleave = (x: number, y: number) => {
+    mouseEnterHappened = false;
+  };
   const handleMouseDown = (x: number, y: number) => {
     setHighlight(true);
+    if (mouseEnterHappened) {
+      const newMouseDownMap: (0 | 1)[][] = JSON.parse(JSON.stringify(mouseDownMap));
+      newMouseDownMap[y][x] = 1;
+      setMouseDownMap(newMouseDownMap);
+    }
   };
-
   const handleMouseUp = (x: number, y: number) => {
     setHighlight(false);
+    const newMouseDownMap: (0 | 1)[][] = JSON.parse(JSON.stringify(mouseDownMap));
+    newMouseDownMap[y][x] = 0;
+    setMouseDownMap(newMouseDownMap);
   };
+  console.table(mouseDownMap);
   // ここまで
 
   return (
@@ -244,10 +260,18 @@ const Home = () => {
               <div
                 className={styles.cell}
                 key={`${x}-${y}`}
-                //onClick={() => userClick(x, y)}
+                onClick={() => userClick(x, y)}
                 // 引数x,yが反映されないのを解決したい
-                onMouseDown={() => handleMouseDown(x, y)}
-                onMouseUp={() => userClick(x, y)}
+                onMouseEnter={() => {
+                  handleMouseEnter(x, y);
+                }}
+                onMouseLeave={() => {
+                  handleMouseleave(x, y);
+                }}
+                onMouseDown={() => {
+                  handleMouseDown(x, y);
+                }}
+                onMouseUp={() => handleMouseUp(x, y)}
                 // ここまで
                 onContextMenu={(event: React.MouseEvent) => rightClick(x, y, event)}
                 style={{
